@@ -292,8 +292,8 @@ println(age)
 
 ### Инициализация vs назначение
 
-Note the (important) difference between `:=` and `=`.
-`:=` is used for declaring and initializing, `=` is used for assigning.
+Обратите внимание на (важную) разницу между `:=` и `=`.
+`:=` используется для объявления и инициализации, `=` используется для присваивания.
 
 ```v failcompile
 fn main() {
@@ -301,8 +301,7 @@ fn main() {
 }
 ```
 
-This code will not compile, because the variable `age` is not declared.
-All variables need to be declared in V.
+Этот код не скомпилируется, потому что переменная `age` не объявлена. Все переменные должны быть объявлены в V.
 
 ```v
 fn main() {
@@ -310,8 +309,7 @@ fn main() {
 }
 ```
 
-The values of multiple variables can be changed in one line.
-In this way, their values can be swapped without an intermediary variable.
+Значения нескольких переменных можно изменить в одной строке. Таким образом, их значения можно поменять местами без промежуточной переменной.
 
 ```v
 mut a := 0
@@ -321,28 +319,25 @@ a, b = b, a
 println('$a, $b') // 1, 0
 ```
 
-### Declaration errors
+### Ошибки объявления
 
-In development mode the compiler will warn you that you haven't used the variable
-(you'll get an "unused variable" warning).
-In production mode (enabled by passing the `-prod` flag to v – `v -prod foo.v`)
-it will not compile at all (like in Go).
+В режиме разработки компилятор предупредит вас, что вы не использовали переменную (вы получите предупреждение "неиспользуемая переменная"). В рабочем режиме (включаемом передачей `-prod` флага v — `v -prod foo.v`) он вообще не будет компилироваться (как в Go).
 
-```v failcompile nofmt
+```v
 fn main() {
 	a := 10
 	if true {
-		a := 20 // error: redefinition of `a`
+		a := 20 // ошибка: переопределение `a`
 	}
-	// warning: unused variable `a`
+	// предупреждение: неиспользуемая переменная `a`
 }
 ```
 
-Unlike most languages, variable shadowing is not allowed. Declaring a variable with a name
-that is already used in a parent scope will cause a compilation error.
+В отличие от большинства языков, затенение переменных не допускается. Объявление переменной с именем, которое уже используется в родительской области, вызовет ошибку компиляции.
 
-You can shadow imported modules though, as it is very useful in some situations:
-```v ignore
+Однако вы можете скрывать импортированные модули, так как в некоторых ситуациях это очень полезно:
+
+```v
 import ui
 import gg
 
@@ -352,38 +347,34 @@ fn draw(ctx &gg.Context) {
 }
 ```
 
-## V Types
+## V Типы
 
-### Primitive types
+### Примитивные типы
 
 ```v ignore
 bool
 
 string
 
-i8    i16  int  i64      i128 (soon)
-u8    u16  u32  u64      u128 (soon)
+i8    i16  int  i64      i128 (скоро)
+u8    u16  u32  u64      u128 (скоро)
 
-rune // represents a Unicode code point
+rune // представляет кодовую точку Unicode
 
 f32 f64
 
-isize, usize // platform-dependent, the size is how many bytes it takes to reference any location in memory
+isize, usize // зависит от платформы, размер — это количество байтов, необходимое для ссылки на любое место в памяти.
 
-voidptr // this one is mostly used for C interoperability
+voidptr // этот в основном используется для совместимости C
 
-any // similar to C's void* and Go's interface{}
+any // похож на void* в C и интерфейс Go{}
 ```
 
-Please note that unlike C and Go, `int` is always a 32 bit integer.
+Обратите внимание, что в отличие от C и Go, `int` это всегда 32-битное целое число.
 
-There is an exception to the rule that all operators
-in V must have values of the same type on both sides. A small primitive type
-on one side can be automatically promoted if it fits
-completely into the data range of the type on the other side.
-These are the allowed possibilities:
+Существует исключение из правила, согласно которому все операторы в V должны иметь значения одного и того же типа с обеих сторон. Небольшой примитивный тип на одной стороне может быть автоматически повышен, если он полностью соответствует диапазону данных типа на другой стороне. Это разрешенные возможности:
 
-```v ignore
+```v
    i8 → i16 → int → i64
                   ↘     ↘
                     f32 → f64
@@ -392,37 +383,31 @@ These are the allowed possibilities:
       ↘     ↘     ↘      ptr
    i8 → i16 → int → i64 ⬏
 ```
-An `int` value for example can be automatically promoted to `f64`
-or `i64` but not to `u32`. (`u32` would mean loss of the sign for
-negative values).
-Promotion from `int` to `f32`, however, is currently done automatically
-(but can lead to precision loss for large values).
+Например `int`, значение может быть автоматически повышено до `f64` или , `i64` но не до `u32`. ( `u32` означало бы потерю знака для отрицательных значений). Однако переход от `int` к `f32` в настоящее время выполняется автоматически (но может привести к потере точности для больших значений).
 
-Literals like `123` or `4.56` are treated in a special way. They do
-not lead to type promotions, however they default to `int` and `f64`
-respectively, when their type has to be decided:
+Литералы типа `123` или `4.56` обрабатываются особым образом. Они не приводят к повышению типа, однако они по умолчанию `int` и `f64`, соответственно, когда необходимо определить их тип:
 
-```v nofmt
+```v
 u := u16(12)
-v := 13 + u    // v is of type `u16` - no promotion
+v := 13 + u    // v имеет тип `u16` - без продвижения
 x := f32(45.6)
-y := x + 3.14  // x is of type `f32` - no promotion
-a := 75        // a is of type `int` - default for int literal
-b := 14.7      // b is of type `f64` - default for float literal
-c := u + a     // c is of type `int` - automatic promotion of `u`'s value
-d := b + x     // d is of type `f64` - automatic promotion of `x`'s value
+y := x + 3.14  // x имеет тип `f32` - без продвижения
+a := 75        // a имеет тип `int` - по умолчанию для литерала int
+b := 14.7      // b имеет тип `f64` - по умолчанию для литерала с плавающей запятой
+c := u + a     // c имеет тип `int` - автоматическое повышение значения `u`
+d := b + x     // d имеет тип `f64` - автоматическое продвижение значения `x`
 ```
 
-### Strings
+### Строки
 
-```v nofmt
+```v
 name := 'Bob'
-assert name.len == 3       // will print 3
-assert name[0] == u8(66) // indexing gives a byte, u8(66) == `B`
-assert name[1..3] == 'ob'  // slicing gives a string 'ob'
+assert name.len == 3       // напечатает 3
+assert name[0] == u8(66) // индексация дает byte, u8(66) == `B`
+assert name[1..3] == 'ob'  // slicing дает строку 'ob'
 
 // escape codes
-windows_newline := '\r\n'      // escape special characters like in C
+windows_newline := '\r\n'      // экранировать специальные символы, как в C
 assert windows_newline.len == 2
 
 // arbitrary bytes can be directly specified using `\x##` notation where `#` is
@@ -437,68 +422,65 @@ assert aardvark_str2 == 'aardvark'
 // and will be converted internally to its UTF-8 representation
 star_str := '\u2605' // ★
 assert star_str == '★'
-assert star_str == '\xe2\x98\x85' // UTF-8 can be specified this way too.
+assert star_str == '\xe2\x98\x85' // Таким же образом можно указать UTF-8
 ```
 
-In V, a string is a read-only array of bytes. All Unicode characters are encoded using UTF-8:
+В V строка представляет собой массив байтов, доступный только для чтения. Все символы Unicode кодируются с использованием UTF-8:
 
 ```v
-s := 'hello 🌎' // emoji takes 4 bytes
+s := 'hello 🌎' // эмодзи занимает 4 байта
 assert s.len == 10
 
-arr := s.bytes() // convert `string` to `[]u8`
+arr := s.bytes() // преобразовать `string` в `[]u8`
 assert arr.len == 10
 
-s2 := arr.bytestr() // convert `[]byte` to `string`
+s2 := arr.bytestr() // преобразовать `[]byte` в `string`
 assert s2 == s
 ```
 
-String values are immutable. You cannot mutate elements:
+Строковые значения неизменяемы. Вы не можете изменять элементы:
 
 ```v failcompile
 mut s := 'hello 🌎'
-s[0] = `H` // not allowed
+s[0] = `H` // не допускается
 ```
 
-> error: cannot assign to `s[i]` since V strings are immutable
+> ошибка: невозможно назначить, s[i]поскольку строки V неизменяемы
 
-Note that indexing a string will produce a `byte`, not a `rune` nor another `string`. Indexes
-correspond to _bytes_ in the string, not Unicode code points. If you want to convert the `byte` to a
-`string`, use the `.ascii_str()` method on the `byte`:
+Обратите внимание, что при индексировании строки будет получен `byte`, а не `rune` либо другой`string`. Индексы соответствуют байтам в строке, а не кодовым точкам Unicode. Если вы хотите преобразовать `byte` в `string`, используйте `.ascii_str()` метод:
 
 ```v
 country := 'Netherlands'
-println(country[0]) // Output: 78
-println(country[0].ascii_str()) // Output: N
+println(country[0]) // Вывод: 78
+println(country[0].ascii_str()) // Вывод: N
 ```
 
-Both single and double quotes can be used to denote strings. For consistency, `vfmt` converts double
-quotes to single quotes unless the string contains a single quote character.
+Для обозначения строк можно использовать как одинарные, так и двойные кавычки. Для согласованности `vfmt` преобразует двойные кавычки в одинарные, если только строка не содержит символ одинарной кавычки.
 
-For raw strings, prepend `r`. Escape handling is not done for raw strings:
+Для необработанных строк добавьте `r`. Обработка экранирования не выполняется для необработанных строк:
 
 ```v
-s := r'hello\nworld' // the `\n` will be preserved as two characters
+s := r'hello\nworld' // `\n` будет сохранен как два символа
 println(s) // "hello\nworld"
 ```
 
-Strings can be easily converted to integers:
+Строки можно легко преобразовать в целые числа:
 
 ```v
 s := '42'
 n := s.int() // 42
 
-// all int literals are supported
+// все литералы int поддерживаются
 assert '0xc3'.int() == 195
 assert '0o10'.int() == 8
 assert '0b1111_0000_1010'.int() == 3850
 assert '-0b1111_0000_1010'.int() == -3850
 ```
 
-For more advanced `string` processing and conversions, refer to the
-[vlib/strconv](https://modules.vlang.io/strconv.html) module.
+Для более сложной `string` обработки и преобразования обратитесь к модулю
+[vlib/strconv](https://modules.vlang.io/strconv.html).
 
-### String interpolation
+### Интерполяция строк
 
 Basic interpolation syntax is pretty simple - use `$` before a variable name. The variable will be
 converted to a string and embedded into the literal:
