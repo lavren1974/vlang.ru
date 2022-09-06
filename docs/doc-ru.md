@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1001
 ---
 
 # V Документация
@@ -244,7 +244,7 @@ println(b) // 3
 c, _ := foo() // игнорировать значения, используя `_`
 ```
 
-## Видимость символа
+## Видимость
 
 ```v
 pub fn public_function() {
