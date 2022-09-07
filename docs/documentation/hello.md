@@ -27,7 +27,7 @@ In this case `main` doesn't return anything, so there is no return type.
 
 As in many other languages (such as C, Go, and Rust), `main` is the entry point of your program.
 
-[`println`](#println) is one of the few [built-in functions](#builtin-functions).
+[`println`](./builtin-functions#println) is one of the few [built-in functions](./builtin-functions).
 It prints the value passed to it to standard output.
 
 `fn main()` declaration can be skipped in one file programs.

@@ -397,7 +397,7 @@ names << 'Sam'
 // names << 10  <-- This will not compile. `names` is an array of strings.
 ```
 
-`val in array` returns true if the array contains `val`. See [`in` operator](#in-operator).
+`val in array` returns true if the array contains `val`. See [`in` operator](./statements-expressions#in-operator).
 
 ```v
 names := ['John', 'Peter', 'Sam']
@@ -421,7 +421,7 @@ nums = [] // The array is now empty
 println(nums.len) // "0"
 ```
 `data` is a field (of type `voidptr`) with the address of the first
-element. This is for low-level [`unsafe`](#memory-unsafe-code) code.
+element. This is for low-level [`unsafe`](../advanced/memory-unsafe-code) code.
 
 Note that the fields are read-only and can't be modified by the user.
 
@@ -467,7 +467,7 @@ for i in 0 .. 1000 {
 	numbers << i
 }
 ```
-Note: The above code uses a [range `for`](#range-for) statement.
+Note: The above code uses a [range `for`](./statements-expressions#range-for) statement.
 
 You can initialize the array by accessing the `it` variable which gives
 the index as shown here:
@@ -483,6 +483,7 @@ mut square := []int{len: 6, init: it * it}
 ### Array Types
 
 An array can be of these types:
+
 | Types        | Example Definition                   |
 | ------------ | ------------------------------------ |
 | Number       | `[]int,[]i64`                        |
@@ -505,7 +506,7 @@ An array can be of these types:
 
 **Example Code:**
 
-This example uses [Structs](#structs) and [Sum Types](#sum-types) to create an array
+This example uses [Structs](./structs.md) and [Sum Types](./type-declarations.md#sum-types) to create an array
 which can handle different types (e.g. Points, Lines) of data elements.
 
 ```v
