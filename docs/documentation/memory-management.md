@@ -36,7 +36,7 @@ Autofree can be enabled with an `-autofree` flag.
 
 For developers willing to have more low level control, autofree can be disabled with
 `-manualfree`, or by adding a `[manualfree]` on each function that wants manage its
-memory manually. (See [attributes](#attributes)).
+memory manually. (See [attributes](../advanced/attributes.md)).
 
 
 Note 2: Autofree is still WIP. Until it stabilises and becomes the default, please

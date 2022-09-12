@@ -12,7 +12,7 @@ Since there are also no globals, that means that the return values of the functi
 are a function of their arguments only, and their evaluation has no side effects
 (unless the function uses I/O).
 
-Function arguments are immutable by default, even when [references](#references) are passed.
+Function arguments are immutable by default, even when [references](./references.md) are passed.
 
 Note that V is not a purely functional language however.
 
