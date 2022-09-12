@@ -4,7 +4,7 @@ sidebar_position: 9
 
 # Module imports
 
-For information about creating a module, see [Modules](#modules).
+For information about creating a module, see [Modules](./modules.md).
 
 Modules can be imported using the `import` keyword:
 

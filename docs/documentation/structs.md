@@ -36,7 +36,7 @@ p := &Point{10, 10}
 println(p.x)
 ```
 
-The type of `p` is `&Point`. It's a [reference](#references) to `Point`.
+The type of `p` is `&Point`. It's a [reference](./references.md) to `Point`.
 References are similar to Go pointers and C++ references.
 
 ```v
@@ -63,7 +63,7 @@ assert c.x == 2
 println(fc) // Foo{ x: 2 }
 println(c) // &Foo{ x: 2 } // Note `&` prefixed.
 ```
-see also [Stack and Heap](#stack-and-heap)
+see also [Stack and Heap](./memory-management.md#stack-and-heap)
 
 ## Default field values
 
@@ -193,7 +193,7 @@ __global:
 	f int // public and mutable both inside and outside parent module
 }
 ```
-Private fields are available only inside the same [module](#modules), any attempt
+Private fields are available only inside the same [module](./modules.md), any attempt
 to directly access them from another module will cause an error during compilation.
 Public immutable fields are readonly everywhere.
 
@@ -304,7 +304,7 @@ Unlike inheritance, you cannot type cast between structs and embedded structs
 
 If you need to access embedded structs directly, use an explicit reference like `button.Size`.
 
-Conceptually, embedded structs are similar to [mixin](https://en.wikipedia.org/wiki/Mixin)s
+Conceptually, embedded structs are similar to [mixins](https://en.wikipedia.org/wiki/Mixin)
 in OOP, *NOT* base classes.
 
 You can also initialize an embedded struct:
