@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Functions
+# Функции
 
 ```v
 fn main() {
@@ -19,19 +19,15 @@ fn sub(x int, y int) int {
 }
 ```
 
-Again, the type comes after the argument's name.
+Опять же, тип идет после имени аргумента.
 
-Just like in Go and C, functions cannot be overloaded.
-This simplifies the code and improves maintainability and readability.
+Как и в Go и C, функции нельзя перегружать. Это упрощает код и повышает удобство сопровождения и удобочитаемость.
 
-## Hoistings
+## Подъемы
 
-Functions can be used before their declaration:
-`add` and `sub` are declared after `main`, but can still be called from `main`.
-This is true for all declarations in V and eliminates the need for header files
-or thinking about the order of files and declarations.
+Функции можно использовать до их объявления: `add` и `sub` объявляются после `main`, но все равно могут быть вызваны из `main`. Это верно для всех объявлений в V и устраняет необходимость в файлах заголовков или размышлениях о порядке файлов и объявлений.
 
-## Returning multiple values
+## Возврат нескольких значений
 
 ```v
 fn foo() (int, int) {
@@ -41,5 +37,5 @@ fn foo() (int, int) {
 a, b := foo()
 println(a) // 2
 println(b) // 3
-c, _ := foo() // ignore values using `_`
+c, _ := foo() // игнорировать значения, используя `_`
 ```

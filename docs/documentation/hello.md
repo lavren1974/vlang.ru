@@ -2,39 +2,36 @@
 sidebar_position: 2
 ---
 
-# Hello World
+# Привет мир
 
 
 ```v
 fn main() {
-	println('hello world')
+	println('Привет мир')
 }
 ```
-Save this snippet into a file named `hello.v`. Now do: `v run hello.v`.
+Сохраните этот фрагмент в файл с именем `hello.v`. Теперь сделайте: `v run hello.v`.
 
-> That is assuming you have symlinked your V with `v symlink`, as described
-[here](https://github.com/vlang/v/blob/master/README.md#symlinking).
-If you haven't yet, you have to type the path to V manually.
+> Это предполагает, что вы сделали символическую ссылку на V с помощью `v symlink`, как описано
+[здесь](https://github.com/vlang/v/blob/master/README.md#symlinking).
+Если вы еще этого не сделали, вам нужно ввести путь к V вручную.
 
-Congratulations - you just wrote and executed your first V program!
+Поздравляем — вы только что написали и выполнили свою первую программу на V!
 
-You can compile a program without execution with `v hello.v`.
-See `v help` for all supported commands.
+Вы можете скомпилировать программу без выполнения с помощью `v hello.v`.
+Смотри `v help` все поддерживаемые команды.
 
-From the example above, you can see that functions are declared with the `fn` keyword.
-The return type is specified after the function name.
-In this case `main` doesn't return anything, so there is no return type.
+Из приведенного выше примера видно, что функции объявляются с помощью `fn` ключевого слова.
+Тип возвращаемого значения указывается после имени функции. В этом случае `main` ничего не возвращает, поэтому возвращаемый тип отсутствует.
 
-As in many other languages (such as C, Go, and Rust), `main` is the entry point of your program.
+Как и во многих других языках (таких как C, Go и Rust), `main` это точка входа в вашу программу.
 
-[`println`](./builtin-functions#println) is one of the few [built-in functions](./builtin-functions).
-It prints the value passed to it to standard output.
+[`println`](./builtin-functions#println) одна из немногих [встроенных функций](./builtin-functions).
+Он печатает переданное ему значение на стандартный вывод.
 
-`fn main()` declaration can be skipped in one file programs.
-This is useful when writing small programs, "scripts", or just learning the language.
-For brevity, `fn main()` will be skipped in this tutorial.
+`fn main()` объявление можно пропустить в одном файле программы. Это полезно при написании небольших программ, «скриптов» или просто при изучении языка. Для краткости, `fn main()` в этом уроке они будут пропущены.
 
-This means that a "hello world" program in V is as simple as
+Это означает, что программа «hello world» в V так же проста, как
 
 ```v
 println('hello world')

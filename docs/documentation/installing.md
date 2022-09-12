@@ -2,8 +2,7 @@
 sidebar_position: 1
 ---
 
-# Installing V from source
-The best way to get the latest and greatest V, is to install it from source.
-It is easy, and it takes only a few seconds:
+# Установка V из исходников
+Лучший способ получить самую последнюю версию V — установить ее из исходного кода. Это легко и занимает всего несколько секунд:
 
 [https://github.com/vlang/v#installing-v](https://github.com/vlang/v#installing-v---from-source-preferred-method)

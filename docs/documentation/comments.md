@@ -2,12 +2,12 @@
 sidebar_position: 4
 ---
 
-# Comments
+# Комментарии
 
 ```v
-// This is a single line comment.
+// Это однострочный комментарий.
 /*
-This is a multiline comment.
-   /* It can be nested. */
+Это многострочный комментарий.
+    /* Может быть вложенным. */
 */
 ```

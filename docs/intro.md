@@ -2,22 +2,17 @@
 sidebar_position: 1
 ---
 
-# Introduction
+# Введение
 
-V is a statically typed compiled programming language designed for building maintainable software.
+V — это статически типизированный скомпилированный язык программирования, предназначенный для создания поддерживаемого программного обеспечения.
 
-Russian
+Он похож на Go, и на его дизайн также повлияли Oberon, Rust, Swift, Kotlin и Python.
 
-It's similar to Go and its design has also been influenced by Oberon, Rust, Swift,
-Kotlin, and Python.
+V — очень простой язык. Изучение этой документации займет у вас около часа, и к его концу вы в значительной степени выучите весь язык.
 
-V is a very simple language. Going through this documentation will take you about an hour,
-and by the end of it you will have pretty much learned the entire language.
+Язык способствует написанию простого и понятного кода с минимальной абстракцией.
 
-The language promotes writing simple and clear code with minimal abstraction.
-
-Despite being simple, V gives the developer a lot of power.
-Anything you can do in other languages, you can do in V.
+Несмотря на простоту, V дает разработчику много возможностей. Все, что вы можете делать на других языках, вы можете делать и на V.
 
 <!-- 
 Commits on Sep 5, 2022

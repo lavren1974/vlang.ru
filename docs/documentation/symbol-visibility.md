@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Symbol visibility
+# Видимость
 
 ```v
 pub fn public_function() {
@@ -12,9 +12,6 @@ fn private_function() {
 }
 ```
 
-Functions are private (not exported) by default.
-To allow other modules to use them, prepend `pub`. The same applies
-to constants and types.
+Функции являются частными (не экспортируются) по умолчанию. Чтобы другие модули могли их использовать, добавьте `pub`. То же самое относится к константам и типам.
 
-Note: `pub` can only be used from a named module.
-For information about creating a module, see [Modules](./modules).
+Примечание: `pub` может использоваться только из именованного модуля. Для получения информации о создании модуля см. раздел [Модули](./modules).

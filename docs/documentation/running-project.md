@@ -2,36 +2,28 @@
 sidebar_position: 3
 ---
 
-## Running a project folder with several files
+# Запуск папки проекта с несколькими файлами
 
-Suppose you have a folder with several .v files in it, where one of them
-contains your `main()` function, and the other files have other helper
-functions. They may be organized by topic, but still *not yet* structured
-enough to be their own separate reusable modules, and you want to compile
-them all into one program.
+Предположим, у вас есть папка с несколькими файлами .v, где один из них содержит вашу `main()` функцию, а другие файлы имеют другие вспомогательные функции. Они могут быть организованы по темам, но еще недостаточно структурированы, чтобы быть отдельными модулями многократного использования, и вы хотите скомпилировать их все в одну программу.
 
-In other languages, you would have to use includes or a build system
-to enumerate all files, compile them separately to object files,
-then link them into one final executable.
+В других языках вам пришлось бы использовать включения или систему сборки для перечисления всех файлов, компилировать их отдельно в объектные файлы, а затем связывать их в один окончательный исполняемый файл.
 
-In V however, you can compile and run the whole folder of .v files together,
-using just `v run .`. Passing parameters also works, so you can
-do: `v run . --yourparam some_other_stuff`
+Однако в V вы можете скомпилировать и запустить всю папку файлов .v вместе, используя только файлы `v run .`. Передача параметров также работает, поэтому вы можете сделать: `v run . --yourparam some_other_stuff`
 
-The above will first compile your files into a single program (named
-after your folder/project), and then it will execute the program with
-`--yourparam some_other_stuff` passed to it as CLI parameters.
+Приведенное выше сначала скомпилирует ваши файлы в единую программу (названную в честь вашей папки/проекта), а затем выполнит программу с `--yourparam some_other_stuff` переданными ей параметрами CLI.
 
-Your program can then use the CLI parameters like this:
+Затем ваша программа может использовать параметры CLI следующим образом:
 ```v
 import os
 
 println(os.args)
-```
-NB: after a successful run, V will delete the generated executable.
-If you want to keep it, use `v -keepc run .` instead, or just compile
-manually with `v .` .
 
-NB: any V compiler flags should be passed *before* the `run` command.
-Everything after the source file/folder, will be passed to the program
-as is - it will not be processed by V.
+// D:\MyDevTest\vlang>v run hello.v --aaa --bbb
+// ['D:\MyDevTest\vlang\hello.exe', '--aaa', '--bbb']
+
+// D:\MyDevTest\vlang>v run hello.v aaa bbb
+// ['D:\MyDevTest\vlang\hello.exe', 'aaa', 'bbb']
+```
+NB: после успешного запуска V удалит сгенерированный исполняемый файл. Если вы хотите сохранить его, используйте `v -keepc run .` вместо него или просто скомпилируйте вручную с расширением `v .` .
+
+NB: любые флаги компилятора V должны быть переданы перед командой `run` Все, что находится после исходного файла/папки, будет передано в программу как есть — оно не будет обработано V.
