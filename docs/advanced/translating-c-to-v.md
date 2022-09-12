@@ -1,5 +1,5 @@
 ---
-sidebar_position: 14
+sidebar_position: 15
 ---
 
 # Translating C to V
@@ -40,9 +40,7 @@ This will generate a directory `libsodium` with a V module.
 
 Example of a C2V generated libsodium wrapper:
 
-https://github.com/vlang/libsodium
-
-<br />
+[`github.com/vlang/libsodium`](https://github.com/vlang/libsodium)
 
 When should you translate C code and when should you simply call C code from V?
 

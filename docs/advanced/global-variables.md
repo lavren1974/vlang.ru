@@ -7,7 +7,7 @@ sidebar_position: 7
 By default V does not allow global variables. However, in low level applications they have their
 place so their usage can be enabled with the compiler flag `-enable-globals`.
 Declarations of global variables must be surrounded with a `__global ( ... )`
-specification &ndash; as in the example [above](#atomics).
+specification &ndash; as in the example [above](./atomics.md).
 
 An initializer for global variables must be explicitly converted to the
 desired target type. If no initializer is given a default initialization is done.
@@ -36,7 +36,7 @@ to race conditions. There are several approaches to deal with these:
 
 - use `shared` types for the variable declarations and use `lock` blocks for access.
   This is most appropriate for larger objects like structs, arrays or maps.
-- handle primitive data types as "atomics" using special C-functions (see [above](#atomics)).
+- handle primitive data types as "atomics" using special C-functions (see [above](./atomics.md)).
 - use explicit synchronization primitives like mutexes to control access. The compiler
   cannot really help in this case, so you have to know what you are doing.
 - don't care &ndash; this approach is possible but makes only sense if the exact values
@@ -222,5 +222,5 @@ struct C.SomeCStruct {
 The existence of the data members is made known to V, and they may be used without
 re-creating the original structure exactly.
 
-Alternatively, you may [embed](#embedded-structs) the sub-data-structures to maintain
+Alternatively, you may [embed](../documentation/structs.md#embedded-structs) the sub-data-structures to maintain
 a parallel code structure.

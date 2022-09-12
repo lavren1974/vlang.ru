@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 12
 ---
 
 # Compile-time reflection
@@ -24,9 +24,6 @@ fn main() {
 // Output:
 // name is of type string
 ```
-
-QQQ
-<!-- See [`examples/compiletime/reflection.v`](/examples/compiletime/reflection.v) -->
-QQQ
+See [`github.com/vlang/v/blob/master/examples/compiletime/reflection.v`](https://github.com/vlang/v/blob/master/examples/compiletime/reflection.v) 
 
 for a more complete example.

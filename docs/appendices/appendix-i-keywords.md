@@ -50,4 +50,4 @@ unsafe
 volatile
 __offsetof
 ```
-See also [V Types](#v-types).
+See also [V Types](../documentation/types.md).

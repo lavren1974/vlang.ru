@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Appendix II: Operators
 
-This lists operators for [primitive types](#primitive-types) only.
+This lists operators for [primitive types](../documentation/types.md#primitive-types) only.
 
 ```v ignore
 +    sum                    integers, floats, strings

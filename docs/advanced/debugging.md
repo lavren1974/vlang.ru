@@ -52,9 +52,9 @@ use `v help`, `v help build` and `v help build-c`.
 [Troubleshooting (debugging) executables created with V in GDB](https://github.com/vlang/v/wiki/Troubleshooting-(debugging)-executables-created-with-V-in-GDB)
 
 **Visual debugging Setup:**
-QQQ
-<!-- * [Visual Studio Code](vscode.md) -->
-QQQ
+
+[Visual Studio Code](https://github.com/vlang/v/blob/master/doc/vscode.md) 
+
 ## Native Backend binaries
 
 Currently there is no debugging support for binaries, created by the
