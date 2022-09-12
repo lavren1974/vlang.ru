@@ -25,7 +25,16 @@ const config = {
   i18n: {
     defaultLocale: 'ru',
     locales: ['ru'],
+    // localeConfigs: {
+    //   ru: {
+    //     label: 'Русский',
+    //   },
+    //   en: {
+    //     label: 'English',
+    //   },
+    // },
   },
+
 
   presets: [
     [
@@ -69,7 +78,17 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/blog', label: 'Blog', position: 'left' },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          //   dropdownItemsAfter: [
+          //     {
+          //       to: 'https://tauri.crowdin.com/documentation',
+          //       label: 'Help us translate',
+          //     },
+          //   ],
+          // },
           {
             href: 'https://github.com/lavren1974/vlang.ru',
             label: 'GitHub',

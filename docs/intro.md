@@ -6,6 +6,8 @@ sidebar_position: 1
 
 V is a statically typed compiled programming language designed for building maintainable software.
 
+Russian
+
 It's similar to Go and its design has also been influenced by Oberon, Rust, Swift,
 Kotlin, and Python.
 
