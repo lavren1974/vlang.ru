@@ -235,6 +235,7 @@ or use string interpolation (preferred):
 age := 12
 println('age = $age')
 ```
+See all methods of [string](https://modules.vlang.io/index.html#string)
 
 ## Runes
 
@@ -620,6 +621,8 @@ There are further built-in methods for arrays:
 * `a.join(joiner)` concatenates an array of strings into one string
   using `joiner` string as a separator
 
+See all methods of [array](https://modules.vlang.io/index.html#array)
+
 See also [vlib/arrays](https://modules.vlang.io/arrays.html).
 
 #### Sorting Arrays
@@ -875,9 +878,26 @@ large_index := 999
 val := arr[large_index] or { panic('out of bounds') }
 println(val)
 // you can also do this, if you want to *propagate* the access error:
-val2 := arr[333]?
+val2 := arr[333]!
 println(val2)
+```
+
+V also supports nested maps:
+```v
+mut m := map[string]map[string]int{}
+m['greet'] = {
+	'Hello': 1
+}
+m['place'] = {
+	'world': 2
+}
+m['code']['orange'] = 123
+print(m)
 ```
 
 Maps are ordered by insertion, like dictionaries in Python. The order is a
 guaranteed language feature. This may change in the future.
+
+See all methods of [map](https://modules.vlang.io/index.html#map)
+
+See all methods of [map](https://modules.vlang.io/index.html#map) and [maps](https://modules.vlang.io/maps.html).

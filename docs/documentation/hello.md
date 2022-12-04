@@ -36,3 +36,8 @@ fn main() {
 ```v
 println('hello world')
 ```
+
+Note: if you do not use explicitly `fn main() {}`, you need to make sure, that all your
+declarations, come before any variable assignment statements, or top level function calls,
+since V will consider everything after the first assignment/function call as part of your
+implicit main function.

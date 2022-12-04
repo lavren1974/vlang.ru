@@ -43,7 +43,7 @@ Note 2: Autofree is still WIP. Until it stabilises and becomes the default, plea
 avoid using it. Right now allocations are handled by a minimal and well performing GC
 until V's autofree engine is production ready.
 
-## Examples
+**Examples**
 
 ```v
 import strings

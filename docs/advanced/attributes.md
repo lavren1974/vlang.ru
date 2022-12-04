@@ -11,14 +11,12 @@ function/struct/enum declaration and applies only to the following declaration.
 
 ```v
 // [flag] enables Enum types to be used as bitfields
-
 [flag]
 enum BitField {
 	read
 	write
 	other
 }
-
 fn main() {
 	assert 1 == int(BitField.read)
 	assert 2 == int(BitField.write)
@@ -38,12 +36,12 @@ fn main() {
 Struct field deprecations:
 ```v oksyntax
 module abc
-
 // Note that only *direct* accesses to Xyz.d in *other modules*, will produce deprecation notices/warnings:
 pub struct Xyz {
 pub mut:
 	a int
-	d int [deprecated: 'use Xyz.a instead'; deprecated_after: '2999-03-01'] // produce a notice, the deprecation date is in the far future
+	d int [deprecated: 'use Xyz.a instead'; deprecated_after: '2999-03-01']
+	// the tags above, will produce a notice, since the deprecation date is in the far future
 }
 ```
 
@@ -53,11 +51,9 @@ Function/method deprecations:
 [deprecated]
 fn old_function() {
 }
-
 // It can also display a custom deprecation message
 [deprecated: 'use new_function() instead']
 fn legacy_function() {}
-
 // You can also specify a date, after which the function will be
 // considered deprecated. Before that date, calls to the function
 // will be compiler notices - you will see them, but the compilation
@@ -76,12 +72,10 @@ fn legacy_function2() {}
 [inline]
 fn inlined_function() {
 }
-
 // This function's calls will NOT be inlined.
 [noinline]
 fn function() {
 }
-
 // This function will NOT return to its callers.
 // Such functions can be used at the end of or blocks,
 // just like exit/1 or panic/1. Such functions can not
@@ -91,29 +85,24 @@ fn function() {
 fn forever() {
 	for {}
 }
-
 // The following struct must be allocated on the heap. Therefore, it can only be used as a
 // reference (`&Window`) or inside another reference (`&OuterStruct{ Window{...} }`).
 // See section "Stack and Heap"
 [heap]
 struct Window {
 }
-
 // V will not generate this function and all its calls if the provided flag is false.
 // To use a flag, use `v -d flag`
 [if debug]
 fn foo() {
 }
-
 fn bar() {
 	foo() // will not be called if `-d debug` is not passed
 }
-
 // The memory pointed to by the pointer arguments of this function will not be
 // freed by the garbage collector (if in use) before the function returns
 [keep_args_alive]
 fn C.my_external_function(voidptr, int, voidptr) int
-
 // Calls to following function must be in unsafe{} blocks.
 // Note that the code in the body of `risky_business()` will still be
 // checked, unless you also wrap it in `unsafe {}` blocks.
@@ -133,31 +122,28 @@ fn risky_business() {
 	// code that will be checked, perhaps checking post conditions and/or
 	// keeping invariants
 }
-
 // V's autofree engine will not take care of memory management in this function.
 // You will have the responsibility to free memory manually yourself in it.
 [manualfree]
 fn custom_allocations() {
 }
-
 // For C interop only, tells V that the following struct is defined with `typedef struct` in C
 [typedef]
 struct C.Foo {
 }
-
 // Used to add a custom calling convention to a function, available calling convention: stdcall, fastcall and cdecl.
 // This list aslo apply for type aliases (see below).
 [callconv: "stdcall"]
 fn C.DefWindowProc(hwnd int, msg int, lparam int, wparam int)
-
 // Used to add a custom calling convention to a function type aliases.
 [callconv: "fastcall"]
 type FastFn = fn (int) bool
-
 // Windows only:
-// If a default graphics library is imported (ex. gg, ui), then the graphical window takes
-// priority and no console window is created, effectively disabling println() statements.
-// Use to explicitly create console window. Valid before main() only.
+// Without this attribute all graphical apps will have the following behavior on Windows:
+// If run from a console or terminal; keep the terminal open so all (e)println statements can be viewed.
+// If run from e.g. Explorer, by double-click; app is opened, but no terminal is opened, and no (e)println output can be seen.
+// Use it to force-open a terminal to view output in, even if the app is started from Explorer.
+// Valid before main() only.
 [console]
 fn main() {
 }

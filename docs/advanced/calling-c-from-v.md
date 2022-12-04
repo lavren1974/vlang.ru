@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Calling C from V
 
-## Example
+**Example**
 
 ```v
 #flag -lsqlite3

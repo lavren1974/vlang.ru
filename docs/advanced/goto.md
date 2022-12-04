@@ -23,5 +23,5 @@ if x {
 my_label:
 ```
 `goto` should be avoided, particularly when `for` can be used instead.
-[Labelled break/continue](../documentation/statements-expressions.md#labelled-break--continue) can be used to break out of
+[Labelled break/continue](#labelled-break--continue) can be used to break out of
 a nested loop, and those do not risk violating memory-safety.

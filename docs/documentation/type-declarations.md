@@ -306,7 +306,7 @@ You can see the complete
 ## Enums
 
 ```v
-enum Color {
+enum Color as u8 {
 	red
 	green
 	blue
@@ -322,6 +322,7 @@ match color {
 	.blue { println('the color was blue') }
 }
 ```
+The enum type can be any integer type, but can be ommited, if it is `int`: `enum Color {`.
 
 Enum match must be exhaustive or have an `else` branch.
 This ensures that if a new enum field is added, it's handled everywhere in the code.
@@ -575,7 +576,13 @@ This is a special case of a [sum type](#sum-types) declaration.
 
 ## Option/Result types and error handling
 
-Option types are declared with `?Type`:
+Optional types are for types which may represent `none`. Result types may
+represent an error returned from a function.
+
+`Option` types are declared by prepending `?` to the type name: `?Type`.
+`Result` types use `!`: `!Type`.
+
+
 ```v
 struct User {
 	id   int
@@ -586,42 +593,52 @@ struct Repo {
 	users []User
 }
 
-fn (r Repo) find_user_by_id(id int) ?User {
+fn (r Repo) find_user_by_id(id int) !User {
 	for user in r.users {
 		if user.id == id {
-			// V automatically wraps this into an option type
+			// V automatically wraps this into a result or option type
 			return user
 		}
 	}
 	return error('User $id not found')
 }
 
+// A version of the function using an optional
+fn (r Repo) find_user_by_id2(id int) ?User {
+	for user in r.users {
+		if user.id == id {
+			return user
+		}
+	}
+	return none
+}
+
 fn main() {
 	repo := Repo{
 		users: [User{1, 'Andrew'}, User{2, 'Bob'}, User{10, 'Charles'}]
 	}
-	user := repo.find_user_by_id(10) or { // Option types must be handled by `or` blocks
+	user := repo.find_user_by_id(10) or { // Option/Result types must be handled by `or` blocks
+		println(err)
 		return
 	}
 	println(user.id) // "10"
 	println(user.name) // "Charles"
+
+	user2 := repo.find_user_by_id2(10) or { return }
 }
 ```
 
-V combines `Option` and `Result` into one type, so you don't need to decide which one to use.
+V used to combine `Option` and `Result` into one type, now they are separate.
 
-The amount of work required to "upgrade" a function to an optional function is minimal;
-you have to add a `?` to the return type and return an error when something goes wrong.
-
-If you don't need to return an error message, you can simply `return none`
-(this is a more efficient equivalent of `return error("")`).
+The amount of work required to "upgrade" a function to an optional/result function is minimal;
+you have to add a `?` or `!` to the return type and return an error when something goes wrong.
 
 This is the primary mechanism for error handling in V. They are still values, like in Go,
 but the advantage is that errors can't be unhandled, and handling them is a lot less verbose.
 Unlike other languages, V does not handle exceptions with `throw/try/catch` blocks.
 
 `err` is defined inside an `or` block and is set to the string message passed
-to the `error()` function. `err` is empty if `none` was returned.
+to the `error()` function.
 
 ```v oksyntax
 user := repo.find_user_by_id(7) or {
@@ -630,21 +647,21 @@ user := repo.find_user_by_id(7) or {
 }
 ```
 
-## Handling optionals
+## Handling optionals/results
 
-There are four ways of handling an optional. The first method is to
+There are four ways of handling an optional/result. The first method is to
 propagate the error:
 
 ```v
 import net.http
 
-fn f(url string) ?string {
-	resp := http.get(url)?
+fn f(url string) !string {
+	resp := http.get(url)!
 	return resp.body
 }
 ```
 
-`http.get` returns `?http.Response`. Because `?` follows the call, the
+`http.get` returns `!http.Response`. Because `!` follows the call, the
 error will be propagated to the caller of `f`. When using `?` after a
 function call producing an optional, the enclosing function must return
 an optional as well. If error propagation is used in the `main()`
@@ -679,11 +696,11 @@ In case of an error, that value would be assigned instead,
 so it must have the same type as the content of the `Option` being handled.
 
 ```v
-fn do_something(s string) ?string {
+fn do_something(s string) !string {
 	if s == 'foo' {
 		return 'foo'
 	}
-	return error('invalid string') // Could be `return none` as well
+	return error('invalid string')
 }
 
 a := do_something('foo') or { 'default' } // a will be 'foo'
@@ -704,5 +721,5 @@ if resp := http.get('https://google.com') {
 	println(err)
 }
 ```
-Above, `http.get` returns a `?http.Response`. `resp` is only in scope for the first
+Above, `http.get` returns a `!http.Response`. `resp` is only in scope for the first
 `if` branch. `err` is only in scope for the `else` branch.

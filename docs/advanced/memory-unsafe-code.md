@@ -4,45 +4,48 @@ sidebar_position: 1
 
 # Memory-unsafe code
 
-Sometimes for efficiency you may want to write low-level code that can potentially
-corrupt memory or be vulnerable to security exploits. V supports writing such code,
-but not by default.
+## Conditional compilation
 
-V requires that any potentially memory-unsafe operations are marked intentionally.
-Marking them also indicates to anyone reading the code that there could be
-memory-safety violations if there was a mistake.
+## Compile time pseudo variables
 
-Examples of potentially memory-unsafe operations are:
+V also gives your code access to a set of pseudo string variables,
+that are substituted at compile time:
 
-* Pointer arithmetic
-* Pointer indexing
-* Conversion to pointer from an incompatible type
-* Calling certain C functions, e.g. `free`, `strlen` and `strncmp`.
+- `@FN` => replaced with the name of the current V function
+- `@METHOD` => replaced with ReceiverType.MethodName
+- `@MOD` => replaced with the name of the current V module
+- `@STRUCT` => replaced with the name of the current V struct
+- `@FILE` => replaced with the absolute path of the V source file
+- `@LINE` => replaced with the V line number where it appears (as a string).
+- `@FILE_LINE` => like `@FILE:@LINE`, but the file part is a relative path
+- `@COLUMN` => replaced with the column where it appears (as a string).
+- `@VEXE` => replaced with the path to the V compiler
+- `@VEXEROOT`  => will be substituted with the *folder*,
+   where the V executable is (as a string).
+- `@VHASH`  => replaced with the shortened commit hash of the V compiler (as a string).
+- `@VMOD_FILE` => replaced with the contents of the nearest v.mod file (as a string).
+- `@VMODROOT` => will be substituted with the *folder*,
+   where the nearest v.mod file is (as a string).
 
-To mark potentially memory-unsafe operations, enclose them in an `unsafe` block:
-
-```v wip
-// allocate 2 uninitialized bytes & return a reference to them
-mut p := unsafe { malloc(2) }
-p[0] = `h` // Error: pointer indexing is only allowed in `unsafe` blocks
-unsafe {
-    p[0] = `h` // OK
-    p[1] = `i`
-}
-p++ // Error: pointer arithmetic is only allowed in `unsafe` blocks
-unsafe {
-    p++ // OK
-}
-assert *p == `i`
+That allows you to do the following example, useful while debugging/logging/tracing your code:
+```v
+eprintln('file: ' + @FILE + ' | line: ' + @LINE + ' | fn: ' + @MOD + '.' + @FN)
 ```
 
-Best practice is to avoid putting memory-safe expressions inside an `unsafe` block,
-so that the reason for using `unsafe` is as clear as possible. Generally any code
-you think is memory-safe should not be inside an `unsafe` block, so the compiler
-can verify it.
+Another example, is if you want to embed the version/name from v.mod *inside* your executable:
+```v ignore
+import v.vmod
+vm := vmod.decode( @VMOD_FILE ) or { panic(err) }
+eprintln('$vm.name $vm.version\n $vm.description')
+```
 
-If you suspect your program does violate memory-safety, you have a head start on
-finding the cause: look at the `unsafe` blocks (and how they interact with
-surrounding code).
+## Compile-time reflection
 
-* Note: This is work in progress.
+Having built-in JSON support is nice, but V also allows you to create efficient
+serializers for any data format. V has compile-time `if` and `for` constructs:
+
+```v
+struct User {
+	name string
+	age  int
+}

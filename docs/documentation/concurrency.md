@@ -171,7 +171,7 @@ A channel can be closed to indicate that no further objects can be pushed. Any a
 to do so will then result in a runtime panic (with the exception of `select` and
 `try_push()` - see below). Attempts to pop will return immediately if the
 associated channel has been closed and the buffer is empty. This situation can be
-handled using an or branch (see [Handling Optionals](./type-declarations.md#handling-optionals)).
+handled using an `or {}` block (see [Handling optionals/results](./type-declarations.md#handling-optionalsresults)).
 
 ```v wip
 ch := chan int{}

@@ -7,6 +7,8 @@ sidebar_position: 17
 Every file in the root of a folder is part of the same module.
 Simple programs don't need to specify module name, in which case it defaults to 'main'.
 
+## Create modules
+
 V is a very modular language. Creating reusable modules is encouraged and is
 quite easy to do.
 To create a new module, create a directory with your module's name containing

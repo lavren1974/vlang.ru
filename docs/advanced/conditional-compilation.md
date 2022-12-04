@@ -144,6 +144,8 @@ numbers: [1, 2, 3]
 3
 ```
 
+See more [details](https://github.com/vlang/v/blob/master/vlib/v/TEMPLATES.md)
+
 ### `$env`
 
 ```v
